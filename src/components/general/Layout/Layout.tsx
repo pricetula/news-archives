@@ -6,7 +6,7 @@ export interface LayoutProps {
 
 export function Layout({ children }: Readonly<LayoutProps>) {
     return (
-        <main>
+        <main className="pt-10">
             <TopNav />
             {children}
         </main>
