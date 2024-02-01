@@ -1,3 +1,4 @@
+import { ReactQueryClientProvider } from "@/app/provider/ReactQueryClientProvider";
 import { TopNav } from "../TopNav";
 
 export interface LayoutProps {
@@ -6,9 +7,11 @@ export interface LayoutProps {
 
 export function Layout({ children }: Readonly<LayoutProps>) {
     return (
-        <main className="pt-10">
-            <TopNav />
-            {children}
-        </main>
+        <ReactQueryClientProvider>
+            <main className="pt-10">
+                <TopNav />
+                {children}
+            </main>
+        </ReactQueryClientProvider>
     );
 }

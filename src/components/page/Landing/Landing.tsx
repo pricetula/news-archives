@@ -1,15 +1,24 @@
-import { Button } from "@/components/ui/button";
+import type { NewsData } from "@/data"; // Import the NewsData type
+import { NewsSnippet } from "./components/NewsSnippet";
 
-/*
-revalidate the data at most every hour
-*/
-export const revalidate = 3600
 
-export function Landing() {
+export interface LandingProps {
+    newsArticles: NewsData[];
+}
+
+export async function Landing({ newsArticles }: LandingProps) {
     return (
         <article>
-            <h1>Landing</h1>
-            <Button>Button</Button>
+            <ul>
+                {
+                    (newsArticles || []).map((article) => (
+                        <li key={article.id}>
+                            <NewsSnippet article={article}/>
+                        </li>
+                    ))
+
+                }
+            </ul>
         </article>
     );
 }
