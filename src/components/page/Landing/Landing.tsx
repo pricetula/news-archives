@@ -1,3 +1,4 @@
+"use client"
 import type { NewsData } from "@/data"; // Import the NewsData type
 import { NewsSnippet } from "./components/NewsSnippet";
 
@@ -8,17 +9,15 @@ export interface LandingProps {
 
 export async function Landing({ newsArticles }: LandingProps) {
     return (
-        <article>
-            <ul>
-                {
-                    (newsArticles || []).map((article) => (
-                        <li key={article.id}>
-                            <NewsSnippet article={article}/>
-                        </li>
-                    ))
+        <ul className="flex flex-wrap">
+            {
+                (newsArticles || []).map((article) => (
+                    <li key={article.id} className="w-1/4">
+                        <NewsSnippet article={article} />
+                    </li>
+                ))
 
-                }
-            </ul>
-        </article>
+            }
+        </ul>
     );
 }

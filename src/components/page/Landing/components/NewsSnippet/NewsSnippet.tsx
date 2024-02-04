@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { NewsData } from "@/data";
+import Link from "next/link";
 
 export interface NewsSnippetProps {
     article: NewsData;
@@ -8,8 +9,6 @@ export interface NewsSnippetProps {
 export function NewsSnippet({ article }: NewsSnippetProps) {
     return (
         <article>
-            <h2>{article.headline}</h2>
-            <p>{article.snippet}</p>
             {
                 article.jumbo_img && (
                     <Image
@@ -21,6 +20,12 @@ export function NewsSnippet({ article }: NewsSnippetProps) {
                     />
                 )
             }
+            <h2>
+                <Link href={`/news/${article.id}`}>
+                    {article.headline}
+                </Link>
+            </h2>
+            <p>{article.snippet}</p>
         </article>
     )
 }
