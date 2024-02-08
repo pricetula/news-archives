@@ -1,23 +1,21 @@
-"use client"
-import type { NewsData } from "@/data"; // Import the NewsData type
-import { NewsSnippet } from "./components/NewsSnippet";
+import {
+    dehydrate,
+    HydrationBoundary,
+    QueryClient,
+} from '@tanstack/react-query'
+import { NewsSnippets } from './components/NewsSnippets';
+import { getNewsArticles } from './utils';
 
 
-export interface LandingProps {
-    newsArticles: NewsData[];
-}
-
-export async function Landing({ newsArticles }: LandingProps) {
+export async function Landing() {
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery({
+        queryKey: ['news-snippets'],
+        queryFn: () => getNewsArticles("0", "4")
+    })
     return (
-        <ul className="flex flex-wrap">
-            {
-                (newsArticles || []).map((article) => (
-                    <li key={article.id} className="w-1/4">
-                        <NewsSnippet article={article} />
-                    </li>
-                ))
-
-            }
-        </ul>
-    );
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <NewsSnippets />
+        </HydrationBoundary>
+    )
 }
